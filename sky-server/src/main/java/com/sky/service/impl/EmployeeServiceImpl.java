@@ -119,6 +119,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = Employee.builder()
                 .status(status)
                 .id(id)
+                .updateUser(BaseContext.getCurrentId())
+                .updateTime(LocalDateTime.now())
                 .build();
 
         employeeMapper.update(employee);
@@ -148,6 +150,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
        // 修改需要更新 修改时间updateTime
        employee.setUpdateTime(LocalDateTime.now());
+       employee.setUpdateUser(BaseContext.getCurrentId());
        employeeMapper.update(employee);
     }
 

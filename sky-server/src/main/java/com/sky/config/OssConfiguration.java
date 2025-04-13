@@ -18,9 +18,9 @@ public class OssConfiguration {
         log.info("AliossUtil 阿里云oss工具对象创建...");
         AliOssUtil aliOssUtil = new AliOssUtil(
                 aliOssProperties.getEndpoint(),
-                aliOssProperties.getAccessKeyId(),
-                aliOssProperties.getAccessKeySecret(),
-                aliOssProperties.getBucketName());
+                aliOssProperties.getBucketName(),
+                aliOssProperties.getRegion(),
+                aliOssProperties);
         return aliOssUtil;
     }
 }

@@ -6,6 +6,8 @@ import com.sky.result.PageResult;
 import com.sky.vo.DishVO;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface DishService {
 
     /**
@@ -20,4 +22,10 @@ public interface DishService {
      * @return
      */
     PageResult dishPageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * 批量删除菜品
+     * @param ids
+     */
+    void deleteDish(List<Long> ids);
 }

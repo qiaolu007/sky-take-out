@@ -48,4 +48,17 @@ public class DishController {
         PageResult pageResult = dishService.dishPageQuery(dishPageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 批量删除菜品
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("批量删除菜品")
+    public Result deleteDish(@RequestParam List<Long> ids) {
+        log.info("删除菜品：{}", ids);
+        dishService.deleteDish(ids);
+        return Result.success();
+    }
 }

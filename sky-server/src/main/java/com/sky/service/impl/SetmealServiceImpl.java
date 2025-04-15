@@ -14,6 +14,7 @@ import com.sky.vo.SetmealVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class SetmealServiceImpl implements SetmealService {
     @Autowired
     private SetmealMapper setmealMapper;
+    @Autowired
     private SetmealDishMapper setmealDishMapper;
 
     /**
@@ -29,6 +31,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @return
      */
     @Override
+    @Transactional
     public void saveSetmeal(SetmealDTO setmealDTO) {
         // 先插入套餐基本信息setmeal表
         Setmeal setmeal = new Setmeal();
@@ -38,8 +41,9 @@ public class SetmealServiceImpl implements SetmealService {
         // 再插入套餐包含的菜品setmeal_dish表
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
         if (setmealDishes != null && setmealDishes.size() > 0) {
-            setmealDishes.forEach(setmealDish ->
-                    setmealDishMapper.insert(setmealDish));
+            setmealDishes.forEach(setmealDish -> {
+                setmealDish.setSetmealId(setmeal.getId());
+                setmealDishMapper.insert(setmealDish);});
         }
     }
 

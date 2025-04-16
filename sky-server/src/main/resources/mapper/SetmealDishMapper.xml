@@ -9,4 +9,12 @@
             #{dishId}
         </foreach>
     </select>
+
+    <delete id="deleteBatch">
+        delete from setmeal_dish where setmeal_id in
+        <foreach collection="ids" open="(" item="id" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>

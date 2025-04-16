@@ -9,7 +9,7 @@
             <if test="categoryId != null">and s.category_id = #{categoryId}</if>
             <if test="status != null">and s.status = #{status}</if>
         </where>
-        order by update_time desc
+        order by create_time desc
     </select>
 
     <delete id="deleteBatch">

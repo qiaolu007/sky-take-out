@@ -149,8 +149,11 @@ public class DishServiceImpl implements DishService {
      * @return
      */
     @Override
-    public void updateStatus(Long id, Long status) {
-        dishMapper.updateStatus(id, status);
+    public void updateStatus(Long id, Integer status) {
+        Dish dish = new Dish();
+        dish.setStatus(status);
+        dish.setId(id);
+        dishMapper.update(dish);
     }
 
     @Override

@@ -49,7 +49,7 @@ public interface DishService {
      * @param status
      * @return
      */
-    void updateStatus(Long id, Long status);
+    void updateStatus(Long id, Integer status);
 
     /**
      * 根据分类id查询菜品

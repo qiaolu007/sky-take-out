@@ -18,10 +18,9 @@ public interface SetmealDishMapper {
 
     /**
      * 插入套餐包含的菜品
-     * @param setmealDish
+     * @param setmealDishs
      */
-    @Insert("insert into setmeal_dish (setmeal_id, dish_id, name, price, copies) values (#{setmealId}, #{dishId}, #{name}, #{price}, #{copies})")
-    void insert(SetmealDish setmealDish);
+    void insertBatch(List<SetmealDish> setmealDishs);
 
     /**
      * 批量删除套餐内的菜品

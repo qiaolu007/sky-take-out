@@ -45,10 +45,12 @@ public class SetmealServiceImpl implements SetmealService {
         // 再插入套餐包含的菜品setmeal_dish表
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
         if (setmealDishes != null && setmealDishes.size() > 0) {
-            setmealDishes.forEach(setmealDish -> {
-                setmealDish.setSetmealId(setmeal.getId());
-                setmealDishMapper.insert(setmealDish);});
+            setmealDishes.forEach(setmealDish ->
+                setmealDish.setSetmealId(setmeal.getId())
+                );
         }
+        // 保存套餐和菜品的关联关系
+        setmealDishMapper.insertBatch(setmealDishes);
     }
 
     /**
@@ -121,11 +123,12 @@ public class SetmealServiceImpl implements SetmealService {
         // 新增套餐现在关联菜品
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
         if (setmealDishes != null && setmealDishes.size() > 0) {
-            setmealDishes.forEach(setmealDish -> {
-                setmealDish.setSetmealId(setmeal.getId());
-                setmealDishMapper.insert(setmealDish);
-            });
+            setmealDishes.forEach(setmealDish ->
+                setmealDish.setSetmealId(setmeal.getId())
+            );
         }
+        setmealDishMapper.insertBatch(setmealDishes);
+
     }
 
     /**

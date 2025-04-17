@@ -12,3 +12,10 @@ sky:
     bucket-name: qiaolu-sky-take-out
     endpoint: https://oss-cn-beijing.aliyuncs.com
     region: cn-beijing
+
+#   spring data redis 配置
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 10

@@ -24,11 +24,11 @@ public class RedisConfiguration {
         redisTemplate.setKeySerializer(new StringRedisSerializer());
 
         // 使用GenericJackson2JsonRedisSerializer来序列化和反序列化redis的value
-        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-
-        // 设置hash key & value序列化模式
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+//        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+//
+//        // 设置hash key & value序列化模式
+//        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
 
         // 初始化参数设置
 //        redisTemplate.afterPropertiesSet();

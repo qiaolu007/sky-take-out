@@ -12,6 +12,7 @@ import com.sky.service.ShoppingCartService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,8 +26,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private DishMapper dishMapper;
     @Autowired
     private SetmealMapper setmealMapper;
+
     /**
      * 添加购物车
+     *
      * @param shoppingCartDTO
      * @return
      */
@@ -68,6 +71,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 查看购物车
+     *
      * @return
      */
     @Override
@@ -83,11 +87,41 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 清空购物车
+     *
      * @return
      */
     @Override
     public void deleteAll() {
         Long userId = BaseContext.getCurrentId();
         shoppingCartMapper.deleteAll(userId);
+    }
+
+    /**
+     * 删除购物车中一个商品
+     *
+     * @param shoppingCartDTO
+     * @return
+     */
+    @Override
+    @Transactional
+    public void delete(ShoppingCartDTO shoppingCartDTO) {
+        Long userId = BaseContext.getCurrentId();
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
+        shoppingCart.setUserId(userId);
+
+        // 购物车中当前商品数量
+        List<ShoppingCart> shoppingCarts = shoppingCartMapper.list(shoppingCart);
+        shoppingCart = shoppingCarts.get(0); //当前商品
+        Integer num = shoppingCart.getNumber();
+
+        // 商品数量大于1，则减一 ; 数量等于1，则直接清除
+        if (num > 1) {
+            shoppingCart.setNumber(num - 1);
+            shoppingCartMapper.updateNumById(shoppingCart);
+        } else {
+            // 删除购物车中商品
+            shoppingCartMapper.deleteProduct(shoppingCart);
+        }
     }
 }

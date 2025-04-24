@@ -9,7 +9,6 @@ import com.sky.service.OrderService;
 import com.sky.vo.HistoryOrdersVO;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
-import com.sky.vo.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -82,4 +81,17 @@ public class OrderController {
         return Result.success(historyOrdersVO);
     }
 
+
+    /**
+     * 取消订单
+     * @param id
+     * @return
+     */
+    @PutMapping("/cancel/{id}")
+    @ApiOperation("取消订单")
+    public Result cacelOrderById(@PathVariable Long id){
+        log.info("取消订单：{}", id);
+        orderService.cancelOrderById(id);
+        return Result.success();
+    }
 }

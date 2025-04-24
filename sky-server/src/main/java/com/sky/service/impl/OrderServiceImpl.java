@@ -13,18 +13,18 @@ import com.sky.exception.OrderBusinessException;
 import com.sky.exception.ShoppingCartBusinessException;
 import com.sky.mapper.*;
 import com.sky.result.PageResult;
+import com.sky.result.Result;
 import com.sky.service.OrderService;
 import com.sky.utils.WeChatPayUtil;
-import com.sky.vo.OrderPaymentVO;
-import com.sky.vo.OrderStatisticsVO;
-import com.sky.vo.OrderSubmitVO;
-import com.sky.vo.OrderVO;
+import com.sky.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -166,5 +166,24 @@ public class OrderServiceImpl implements OrderService {
 
         orderMapper.update(orders);
     }
+
+    /**
+     * 历史订单查询
+     * @param historyOrdersPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult historyOrdersPageQuery(HistoryOrdersPageQueryDTO historyOrdersPageQueryDTO) {
+        //设置页面.每页记录数
+        PageHelper.startPage(historyOrdersPageQueryDTO.getPage(), historyOrdersPageQueryDTO.getPageSize());
+
+        Long userId = BaseContext.getCurrentId();
+        historyOrdersPageQueryDTO.setUserId(userId);
+        Page<HistoryOrdersVO> pages = orderMapper.historyOrdersPageQuery(historyOrdersPageQueryDTO);
+        return new PageResult(pages.getTotal(), pages.getResult());
+    }
+
+
+
 
 }

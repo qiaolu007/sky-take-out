@@ -2,8 +2,10 @@ package com.sky.mapper;
 
 import com.github.pagehelper.Page;
 import com.sky.dto.GoodsSalesDTO;
+import com.sky.dto.HistoryOrdersPageQueryDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
+import com.sky.vo.HistoryOrdersVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import java.time.LocalDateTime;
@@ -31,4 +33,10 @@ public interface OrderMapper {
      */
     void update(Orders orders);
 
+    /**
+     * 历史订单查询
+     * @param historyOrdersPageQueryDTO
+     * @return
+     */
+    Page<HistoryOrdersVO> historyOrdersPageQuery(HistoryOrdersPageQueryDTO historyOrdersPageQueryDTO);
 }

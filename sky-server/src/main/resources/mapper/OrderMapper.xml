@@ -43,63 +43,81 @@
         where id = #{id}
     </update>
 
-<!--    定义复杂映射关系的元素-->
-    <resultMap id="historyOrders" type="com.sky.vo.HistoryOrdersVO">
-        <id column="id" property="id" />
-        <result column="number" property="number" />
-        <result column="status" property="status" />
-        <result column="user_id" property="userId" />
-        <result column="address_book_id" property="addressBookId" />
-        <result column="order_time" property="orderTime" />
-        <result column="checkout_time" property="checkoutTime" />
-        <result column="pay_method" property="payMethod" />
-        <result column="pay_status" property="payStatus" />
-        <result column="amount" property="amount" />
-        <result column="remark" property="remark" />
-        <result column="user_name" property="userName" />
-        <result column="phone" property="phone" />
-        <result column="address" property="address" />
-        <result column="consignee" property="consignee" />
-        <result column="cancel_reason" property="cancelReason" />
-        <result column="rejection_reason" property="rejectionReason" />
-        <result column="cancel_time" property="cancelTime" />
-        <result column="estimated_delivery_time" property="estimatedDeliveryTime" />
-        <result column="delivery_status" property="deliveryStatus" />
-        <result column="delivery_time" property="deliveryTime" />
+    <!--    定义复杂映射关系的元素-->
+    <resultMap id="orderDetail" type="com.sky.vo.HistoryOrdersVO">
+        <id column="id" property="id"/>
+        <result column="number" property="number"/>
+        <result column="status" property="status"/>
+        <result column="user_id" property="userId"/>
+        <result column="address_book_id" property="addressBookId"/>
+        <result column="order_time" property="orderTime"/>
+        <result column="checkout_time" property="checkoutTime"/>
+        <result column="pay_method" property="payMethod"/>
+        <result column="pay_status" property="payStatus"/>
+        <result column="amount" property="amount"/>
+        <result column="remark" property="remark"/>
+        <result column="user_name" property="userName"/>
+        <result column="phone" property="phone"/>
+        <result column="address" property="address"/>
+        <result column="consignee" property="consignee"/>
+        <result column="cancel_reason" property="cancelReason"/>
+        <result column="rejection_reason" property="rejectionReason"/>
+        <result column="cancel_time" property="cancelTime"/>
+        <result column="estimated_delivery_time" property="estimatedDeliveryTime"/>
+        <result column="delivery_status" property="deliveryStatus"/>
+        <result column="delivery_time" property="deliveryTime"/>
         <result column="pack_amount" property="packAmount"/>
         <result column="tableware_number" property="tablewareNumber"/>
         <result column="tableware_status" property="tablewareStatus"/>
-<!--        封装orderDetailList-->
+        <!--        封装orderDetailList-->
         <collection property="orderDetailList" ofType="com.sky.entity.OrderDetail">
-            <id column="odd_id" property="id" />
-            <result column="odd_name" property="name" />
-            <result column="odd_orderId" property="orderId" />
-            <result column="odd_dishId" property="dishId" />
-            <result column="odd_setmealId" property="setmealId" />
-            <result column="odd_dishFlavor" property="dishFlavor" />
-            <result column="odd_number" property="number" />
-            <result column="odd_amount" property="amount" />
-            <result column="odd_image" property="image" />
+            <id column="odd_id" property="id"/>
+            <result column="odd_name" property="name"/>
+            <result column="odd_orderId" property="orderId"/>
+            <result column="odd_dishId" property="dishId"/>
+            <result column="odd_setmealId" property="setmealId"/>
+            <result column="odd_dishFlavor" property="dishFlavor"/>
+            <result column="odd_number" property="number"/>
+            <result column="odd_amount" property="amount"/>
+            <result column="odd_image" property="image"/>
         </collection>
     </resultMap>
 
-    <select id="historyOrdersPageQuery" resultMap="historyOrders">
+    <select id="historyOrdersPageQuery" resultMap="orderDetail">
         select od.*,
-            odd.id odd_id,
-            odd.name odd_name,
-            odd.order_id odd_orderId,
-            odd.dish_id odd_dishId,
-            odd.setmeal_id odd_setmealId,
-            odd.dish_flavor odd_dishFlavor,
-            odd.number odd_number,
-            odd.amount odd_amount,
-            odd.image odd_image
+        odd.id odd_id,
+        odd.name odd_name,
+        odd.order_id odd_orderId,
+        odd.dish_id odd_dishId,
+        odd.setmeal_id odd_setmealId,
+        odd.dish_flavor odd_dishFlavor,
+        odd.number odd_number,
+        odd.amount odd_amount,
+        odd.image odd_image
         from orders od
-                 left join order_detail odd on od.id = odd.order_id
+        left join order_detail odd on od.id = odd.order_id
         <where>
             <if test="userId != null">user_id = #{userId}</if>
             <if test="status != null">and status = #{status}</if>
         </where>
+        order by order_time desc
+    </select>
+
+    <select id="getOrderDetailById" resultMap="orderDetail">
+
+        select od.*,
+               odd.id          odd_id,
+               odd.name        odd_name,
+               odd.order_id    odd_orderId,
+               odd.dish_id     odd_dishId,
+               odd.setmeal_id  odd_setmealId,
+               odd.dish_flavor odd_dishFlavor,
+               odd.number      odd_number,
+               odd.amount      odd_amount,
+               odd.image       odd_image
+        from orders od
+                 left join order_detail odd on od.id = odd.order_id
+        where od.id = #{id}
     </select>
 
 </mapper>

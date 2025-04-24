@@ -69,4 +69,17 @@ public class OrderController {
         PageResult pageResult = orderService.historyOrdersPageQuery(historyOrdersPageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 查询订单详情
+     * @param id
+     * @return
+     */
+    @GetMapping("orderDetail/{id}")
+    public Result<HistoryOrdersVO> getOrderDetailById(@PathVariable Long id){
+        log.info("查询订单详情：{}", id);
+        HistoryOrdersVO historyOrdersVO = orderService.getOrderDetailById(id);
+        return Result.success(historyOrdersVO);
+    }
+
 }

@@ -39,4 +39,11 @@ public interface OrderMapper {
      * @return
      */
     Page<HistoryOrdersVO> historyOrdersPageQuery(HistoryOrdersPageQueryDTO historyOrdersPageQueryDTO);
+
+    /**
+     * 查询订单详情
+     * @param id
+     * @return
+     */
+    HistoryOrdersVO getOrderDetailById(Long id);
 }

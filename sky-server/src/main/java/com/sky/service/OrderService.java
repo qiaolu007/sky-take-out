@@ -32,4 +32,12 @@ public interface OrderService {
      * @return
      */
     PageResult historyOrdersPageQuery(HistoryOrdersPageQueryDTO historyOrdersPageQueryDTO);
+
+
+    /**
+     * 查询订单详情
+     * @param id
+     * @return
+     */
+    HistoryOrdersVO getOrderDetailById(Long id);
 }

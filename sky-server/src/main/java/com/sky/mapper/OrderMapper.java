@@ -2,11 +2,11 @@ package com.sky.mapper;
 
 import com.github.pagehelper.Page;
 import com.sky.dto.HistoryOrdersPageQueryDTO;
+import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import com.sky.vo.HistoryOrdersVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface OrderMapper {
@@ -51,9 +51,9 @@ public interface OrderMapper {
     Orders getById(Long id);
 
     /**
-     * 取消订单（订单id）
-     * @param id
+     * 订单搜索
+     * @param ordersPageQueryDTO
+     * @return
      */
-    @Update("update orders set status = 6 where id = #{id}")
-    void updateOrderStatus(Long id);
+    Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
 }

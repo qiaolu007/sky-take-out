@@ -44,6 +44,13 @@ public interface OrderMapper {
     HistoryOrdersVO getOrderDetailById(Long id);
 
     /**
+     * 根据id查询订单
+     * @param id
+     */
+    @Select("select * from orders where id=#{id}")
+    Orders getById(Long id);
+
+    /**
      * 取消订单（订单id）
      * @param id
      */

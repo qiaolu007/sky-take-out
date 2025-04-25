@@ -46,5 +46,12 @@ public interface OrderService {
      * @param id
      * @return
      */
-    void cancelOrderById(Long id);
+    void cancelOrderById(Long id) throws Exception;
+
+    /**
+     * 再来一单
+     * @param id
+     * @return
+     */
+    void repeatOrderById(Long id);
 }

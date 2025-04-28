@@ -44,7 +44,7 @@
     </update>
 
     <!--    定义复杂映射关系的元素-->
-    <resultMap id="orderDetail" type="com.sky.vo.HistoryOrdersVO">
+    <resultMap id="orderDetail" type="com.sky.vo.OrderVO">
         <id column="id" property="id"/>
         <result column="number" property="number"/>
         <result column="status" property="status"/>

@@ -4,8 +4,8 @@ import com.github.pagehelper.Page;
 import com.sky.dto.HistoryOrdersPageQueryDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
-import com.sky.vo.HistoryOrdersVO;
 import com.sky.vo.OrderStatisticsVO;
+import com.sky.vo.OrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -35,14 +35,14 @@ public interface OrderMapper {
      * @param historyOrdersPageQueryDTO
      * @return
      */
-    Page<HistoryOrdersVO> historyOrdersPageQuery(HistoryOrdersPageQueryDTO historyOrdersPageQueryDTO);
+    Page<OrderVO> historyOrdersPageQuery(HistoryOrdersPageQueryDTO historyOrdersPageQueryDTO);
 
     /**
      * 查询订单详情
      * @param id
      * @return
      */
-    HistoryOrdersVO getOrderDetailById(Long id);
+    OrderVO getOrderDetailById(Long id);
 
     /**
      * 根据id查询订单

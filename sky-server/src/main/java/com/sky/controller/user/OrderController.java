@@ -6,9 +6,9 @@ import com.sky.dto.OrdersSubmitDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
-import com.sky.vo.HistoryOrdersVO;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
+import com.sky.vo.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -75,10 +75,10 @@ public class OrderController {
      * @return
      */
     @GetMapping("orderDetail/{id}")
-    public Result<HistoryOrdersVO> getOrderDetailById(@PathVariable Long id){
+    public Result<OrderVO> getOrderDetailById(@PathVariable Long id){
         log.info("查询订单详情：{}", id);
-        HistoryOrdersVO historyOrdersVO = orderService.getOrderDetailById(id);
-        return Result.success(historyOrdersVO);
+        OrderVO orderVO = orderService.getOrderDetailById(id);
+        return Result.success(orderVO);
     }
 
 

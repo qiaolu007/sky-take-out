@@ -39,7 +39,7 @@ public interface OrderService {
      * @param id
      * @return
      */
-    HistoryOrdersVO getOrderDetailById(Long id);
+    OrderVO getOrderDetailById(Long id);
 
     /**
      * 取消订单

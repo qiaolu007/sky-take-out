@@ -164,7 +164,7 @@ public class OrderServiceImpl implements OrderService {
 
         Long userId = BaseContext.getCurrentId();
         historyOrdersPageQueryDTO.setUserId(userId);
-        Page<HistoryOrdersVO> pages = orderMapper.historyOrdersPageQuery(historyOrdersPageQueryDTO);
+        Page<OrderVO> pages = orderMapper.historyOrdersPageQuery(historyOrdersPageQueryDTO);
         return new PageResult(pages.getTotal(), pages.getResult());
     }
 
@@ -175,9 +175,9 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public HistoryOrdersVO getOrderDetailById(Long id) {
-        HistoryOrdersVO historyOrdersVO = orderMapper.getOrderDetailById(id);
-        return historyOrdersVO;
+    public OrderVO getOrderDetailById(Long id) {
+        OrderVO orderVO = orderMapper.getOrderDetailById(id);
+        return orderVO;
     }
 
     /**
@@ -232,10 +232,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void repeatOrderById(Long id) {
         // 获取当前id 历史订单详情
-        HistoryOrdersVO historyOrdersVO = orderMapper.getOrderDetailById(id);
+        OrderVO orderVO = orderMapper.getOrderDetailById(id);
         Long userId = BaseContext.getCurrentId();
 
-        List<OrderDetail> orderDetailList = historyOrdersVO.getOrderDetailList();
+        List<OrderDetail> orderDetailList = orderVO.getOrderDetailList();
         //向明细表插入n条数据
         List<ShoppingCart> shoppingCarts = orderDetailList.stream().map(orderDetail -> {
             ShoppingCart shoppingCart = new ShoppingCart();
@@ -292,7 +292,6 @@ public class OrderServiceImpl implements OrderService {
                 orderVO.setOrderDishes(orderDishes);
                 return orderVO;
             }).collect(Collectors.toList());
-            return orderVOList;
         }
         return orderVOList;
     }

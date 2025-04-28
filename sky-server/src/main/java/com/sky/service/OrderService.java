@@ -61,4 +61,10 @@ public interface OrderService {
      * @return
      */
     PageResult ordersPageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    /**
+     * 各个状态的订单数量统计
+     * @return
+     */
+    OrderStatisticsVO getStatistics();
 }

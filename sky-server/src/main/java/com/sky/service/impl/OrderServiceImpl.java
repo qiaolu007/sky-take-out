@@ -268,6 +268,17 @@ public class OrderServiceImpl implements OrderService {
         return new PageResult(pages.getTotal(), orderVOList);
     }
 
+    /**
+     * 各个状态的订单数量统计
+     * @return
+     */
+    @Override
+    public OrderStatisticsVO getStatistics() {
+        OrderStatisticsVO orderStatisticsVO = orderMapper.getStatistics();
+
+        return orderStatisticsVO;
+    }
+
     private List<OrderVO> getOrderVoList(Page<Orders> pages) {
         List<Orders> ordersList = pages.getResult();
 

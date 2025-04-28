@@ -15,12 +15,15 @@ import com.sky.result.PageResult;
 import com.sky.service.OrderService;
 import com.sky.utils.WeChatPayUtil;
 import com.sky.vo.*;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -46,6 +49,8 @@ public class OrderServiceImpl implements OrderService {
     private AddressBookMapper addressBookMapper;
     @Autowired
     private WeChatPayUtil weChatPayUtil;
+    @Autowired
+    private OrderService orderService;
 
     /**
      * 用户下单
@@ -337,6 +342,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 取消订单
+     *
      * @param ordersCancelDTO
      * @return
      */
@@ -372,6 +378,29 @@ public class OrderServiceImpl implements OrderService {
         orders.setCancelTime(LocalDateTime.now());
         orders.setCancelReason(ordersCancelDTO.getCancelReason());
         orders.setStatus(Orders.CANCELLED); // 拒单后，设置状态为取消
+
+        orderMapper.update(orders);
+    }
+
+    /**
+     * 派送订单
+     *
+     * @param id 订单id
+     * @return
+     */
+    @Override
+    public void deliveryOrder(@PathVariable Long id) {
+        // 根据id查询订单
+        Orders ordersDB = orderMapper.getById(id);
+        // 校验订单是否存在，并且状态为3
+        if (ordersDB == null || !ordersDB.getStatus().equals(Orders.CONFIRMED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        Orders orders = Orders.builder()
+                .id(id)
+                .status(Orders.DELIVERY_IN_PROGRESS)
+                .build();
 
         orderMapper.update(orders);
     }

@@ -103,4 +103,17 @@ public class OrderController {
         orderService.cancelOrder(ordersCancelDTO);
         return Result.success();
     }
+
+    /**
+     * 派送订单
+     * @param id 订单id
+     * @return
+     */
+    @PutMapping("/delivery/{id}")
+    @ApiOperation("派送订单")
+    public Result deliveryOrder(@PathVariable Long id) {
+        log.info("派送订单：{}", id);
+        orderService.deliveryOrder(id);
+        return Result.success();
+    }
 }

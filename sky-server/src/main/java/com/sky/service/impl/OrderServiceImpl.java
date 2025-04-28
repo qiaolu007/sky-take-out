@@ -292,6 +292,19 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.update(orders);
     }
 
+    /**
+     * 商家拒单
+     * @param ordersRejectionDTO
+     * @return
+     */
+    @Override
+    public void rejectOrder(OrdersRejectionDTO ordersRejectionDTO) {
+        Orders orders = new Orders();
+        BeanUtils.copyProperties(ordersRejectionDTO, orders);
+        orders.setStatus(Orders.CANCELLED); // 拒单后，设置状态为取消
+        orderMapper.update(orders);
+    }
+
     private List<OrderVO> getOrderVoList(Page<Orders> pages) {
         List<Orders> ordersList = pages.getResult();
 

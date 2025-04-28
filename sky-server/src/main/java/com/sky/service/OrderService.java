@@ -36,21 +36,21 @@ public interface OrderService {
 
     /**
      * 查询订单详情
-     * @param id
+     * @param id 订单id
      * @return
      */
     OrderVO getOrderDetailById(Long id);
 
     /**
      * 取消订单
-     * @param id
+     * @param id 订单id
      * @return
      */
     void cancelOrderById(Long id) throws Exception;
 
     /**
      * 再来一单
-     * @param id
+     * @param id 订单id
      * @return
      */
     void repeatOrderById(Long id);
@@ -67,4 +67,11 @@ public interface OrderService {
      * @return
      */
     OrderStatisticsVO getStatistics();
+
+    /**
+     * 商家接单
+     * @param ordersConfirmDTO
+     * @return
+     */
+    void confirmOrder(OrdersConfirmDTO ordersConfirmDTO);
 }

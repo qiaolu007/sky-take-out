@@ -1,5 +1,6 @@
 package com.sky.controller.admin;
 
+import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
@@ -47,5 +48,31 @@ public class OrderController {
         log.info("各个状态的订单数量统计...");
         OrderStatisticsVO orderStatisticsVO = orderService.getStatistics();
         return Result.success(orderStatisticsVO);
+    }
+
+    /**
+     * 查询订单详情
+     * @param id 订单id
+     * @return
+     */
+    @GetMapping("/details/{id}")
+    @ApiOperation("查询订单详情")
+    public Result<OrderVO> getOrdersDetails(@PathVariable Long id) {
+        log.info("查询订单详情:{}", id);
+        OrderVO orderVO = orderService.getOrderDetailById(id);
+        return Result.success(orderVO);
+    }
+
+    /**
+     * 商家接单
+     * @param ordersConfirmDTO
+     * @return
+     */
+    @PutMapping("/confirm")
+    @ApiOperation("商家接单")
+    public Result confirmOrder(@RequestBody OrdersConfirmDTO ordersConfirmDTO) {
+        log.info("商家接单：{}", ordersConfirmDTO);
+        orderService.confirmOrder(ordersConfirmDTO);
+        return Result.success();
     }
 }

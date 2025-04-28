@@ -171,7 +171,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 查询订单详情
      *
-     * @param id
+     * @param id 订单id
      * @return
      */
     @Override
@@ -277,6 +277,19 @@ public class OrderServiceImpl implements OrderService {
         OrderStatisticsVO orderStatisticsVO = orderMapper.getStatistics();
 
         return orderStatisticsVO;
+    }
+
+    /**
+     * 商家接单
+     * @param ordersConfirmDTO
+     * @return
+     */
+    @Override
+    public void confirmOrder(OrdersConfirmDTO ordersConfirmDTO) {
+        Orders orders = new Orders();
+        BeanUtils.copyProperties(ordersConfirmDTO, orders);
+        orders.setStatus(Orders.CONFIRMED);
+        orderMapper.update(orders);
     }
 
     private List<OrderVO> getOrderVoList(Page<Orders> pages) {

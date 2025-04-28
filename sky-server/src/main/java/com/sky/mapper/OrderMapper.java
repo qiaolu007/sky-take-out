@@ -39,7 +39,7 @@ public interface OrderMapper {
 
     /**
      * 查询订单详情
-     * @param id
+     * @param id 订单id
      * @return
      */
     OrderVO getOrderDetailById(Long id);

@@ -71,7 +71,7 @@ public class OrderController {
 
     /**
      * 查询订单详情
-     * @param id
+     * @param id 订单id
      * @return
      */
     @GetMapping("orderDetail/{id}")
@@ -84,7 +84,7 @@ public class OrderController {
 
     /**
      * 取消订单
-     * @param id
+     * @param id 订单id
      * @return
      */
     @PutMapping("/cancel/{id}")
@@ -97,7 +97,7 @@ public class OrderController {
 
     /**
      * 再来一单
-     * @param id
+     * @param id 订单id
      * @return
      */
     @PostMapping("/repetition/{id}")

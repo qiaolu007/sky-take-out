@@ -47,3 +47,6 @@ sky:
     user-ttl: 2592000000
     user-token-name: authentication
 
+  shop:
+    address: 北京市海淀区上地十街10号
+

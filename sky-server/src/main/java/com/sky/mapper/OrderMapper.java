@@ -9,8 +9,10 @@ import com.sky.vo.OrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -83,4 +85,11 @@ public interface OrderMapper {
      */
     @Select("select * from orders where status = #{status} and order_time < #{time}")
     List<Orders> getDeliveryOrder(Integer status, LocalDateTime time);
+
+    /**
+     * 查询符合条件的营业额
+     * @param map
+     * @return
+     */
+    BigDecimal getTurnover(Map<String, Object> map);
 }

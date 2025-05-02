@@ -92,4 +92,11 @@ public interface OrderMapper {
      * @return
      */
     BigDecimal getTurnover(Map<String, Object> map);
+
+    /**
+     * 指定时间订单统计（总订单、其他状态订单数）
+     * @param map
+     * @return
+     */
+    Integer getOrderCount(Map<String, Object> map);
 }

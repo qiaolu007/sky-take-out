@@ -1,11 +1,11 @@
 package com.sky.controller.admin;
 
+import com.sky.mapper.OrderDetailMapper;
 import com.sky.result.Result;
+import com.sky.service.OrderDetailService;
+import com.sky.service.OrderService;
 import com.sky.service.ReportService;
-import com.sky.vo.OrderReportVO;
-import com.sky.vo.OrderStatisticsVO;
-import com.sky.vo.TurnoverReportVO;
-import com.sky.vo.UserReportVO;
+import com.sky.vo.*;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,9 @@ import java.time.LocalDate;
 public class reportController {
     @Autowired
     private ReportService reportService;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     /**
      * 营业额统计接口
@@ -64,5 +67,20 @@ public class reportController {
         log.info("订单统计接口:{}，{}", begin, end);
         OrderReportVO orderReportVO = reportService.getOrdersStatistics(begin, end);
         return Result.success(orderReportVO);
+    }
+
+
+    /**
+     * 查询销量排名top10接口
+     * @param begin
+     * @param end
+     * @return
+     */
+    @GetMapping("/top10")
+    @ApiOperation("查询销量排名top10")
+    public Result<SalesTop10ReportVO> getTop10(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
+        log.info("查询销量排名top10接口：{}，{}", begin, end);
+        SalesTop10ReportVO salesTop10ReportVO = orderDetailService.getTop10(begin, end);
+        return Result.success(salesTop10ReportVO);
     }
 }

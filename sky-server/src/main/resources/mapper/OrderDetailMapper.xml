@@ -11,4 +11,16 @@
             #{od.number},#{od.amount},#{od.image})
         </foreach>
     </insert>
+
+    <select id="getTop10" resultType="com.sky.dto.GoodsSalesDTO">
+        select odd.name, odd.number
+        from order_detail odd
+                 left join orders od on odd.order_id = od.id
+        <where>
+            <if test="status != null">and od.status = #{status}</if>
+            <if test="begin != null">and od.order_time &gt; #{begin}</if>
+            <if test="end != null">and od.order_time &lt; #{end}</if>
+        </where>
+        order by odd.number desc;
+    </select>
 </mapper>

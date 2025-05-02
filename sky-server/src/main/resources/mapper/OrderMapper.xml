@@ -141,7 +141,7 @@
             status IN (2, 3, 4);
     </select>
 
-    <select id="getTurnover" resultType="java.math.BigDecimal">
+    <select id="getTurnover" resultType="java.lang.Double">
         select sum(orders.amount) from orders
         <where>
             <if test="status != null"> and status = #{status}</if>
@@ -149,6 +149,7 @@
             <if test="end != null">and order_time &lt; #{end}</if>
         </where>
     </select>
+
 
     <select id="getOrderCount" resultType="java.lang.Integer">
         select count(*) from orders
@@ -158,5 +159,4 @@
             <if test="end != null">and order_time &lt; #{end}</if>
         </where>
     </select>
-
 </mapper>

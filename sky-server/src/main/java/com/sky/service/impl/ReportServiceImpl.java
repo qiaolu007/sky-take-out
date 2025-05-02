@@ -7,6 +7,7 @@ import com.sky.service.ReportService;
 import com.sky.vo.OrderReportVO;
 import com.sky.vo.TurnoverReportVO;
 import com.sky.vo.UserReportVO;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class ReportServiceImpl implements ReportService{
             begin = begin.plusDays(1);
         }
 
-        List<BigDecimal> turnoverStatisticsList = new ArrayList<>();
+        List<Double> turnoverStatisticsList = new ArrayList<>();
         dateList.forEach(localDate -> {
             LocalDateTime beginStart = LocalDateTime.of(localDate, LocalTime.MIN);
             LocalDateTime endFinish = LocalDateTime.of(localDate, LocalTime.MAX);
@@ -56,8 +57,8 @@ public class ReportServiceImpl implements ReportService{
             map.put("begin",beginStart);
             map.put("end", endFinish);
 
-            BigDecimal turnoverStatistics = orderMapper.getTurnover(map); // 查询符合条件（时间。状态）的总营业额
-            turnoverStatistics = turnoverStatistics == null ? BigDecimal.valueOf(0.0) : turnoverStatistics; // 当天营业额为空，则设为0
+            Double turnoverStatistics = orderMapper.getTurnover(map); // 查询符合条件（时间。状态）的总营业额
+            turnoverStatistics = turnoverStatistics == null ? 0.0 : turnoverStatistics; // 当天营业额为空，则设为0
             turnoverStatisticsList.add(turnoverStatistics);
         });
 
@@ -76,7 +77,7 @@ public class ReportServiceImpl implements ReportService{
     @Override
     public UserReportVO getUserStatistics(LocalDate begin, LocalDate end) {
         LocalDateTime beginTime = LocalDateTime.of(begin, LocalTime.MIN);
-        BigDecimal totalUser = userMapper.getTotalUserByTime(beginTime); // 开始日期0点之前总的用户人数
+        Integer totalUser = userMapper.getTotalUserByTime(beginTime); // 开始日期0点之前总的用户人数
 
         List<LocalDate> dateList = new ArrayList<>();
         while(!begin.isAfter(end)) {
@@ -85,16 +86,16 @@ public class ReportServiceImpl implements ReportService{
         }
 
 
-        List<BigDecimal> totalUserList = new ArrayList<>();
-        List<BigDecimal> newUserList = new ArrayList<>();
+        List<Integer> totalUserList = new ArrayList<>();
+        List<Integer> newUserList = new ArrayList<>();
 
         for (LocalDate localDate : dateList) {
             LocalDateTime beginStart = LocalDateTime.of(localDate, LocalTime.MIN);
             LocalDateTime endFinish = LocalDateTime.of(localDate, LocalTime.MAX);
 
 
-            BigDecimal newUser = userMapper.getNewUser(beginStart, endFinish); // 查询符合条件（时间。状态）的总营业额
-            totalUser = totalUser.add(newUser);
+            Integer newUser = userMapper.getNewUser(beginStart, endFinish); // 查询符合条件（时间。状态）的总营业额
+            totalUser += newUser;
 
             newUserList.add(newUser);
             totalUserList.add(totalUser);

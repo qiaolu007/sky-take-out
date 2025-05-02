@@ -9,7 +9,6 @@ import com.sky.vo.OrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +90,7 @@ public interface OrderMapper {
      * @param map
      * @return
      */
-    BigDecimal getTurnover(Map<String, Object> map);
+    Double getTurnover(Map<String, Object> map);
 
     /**
      * 指定时间订单统计（总订单、其他状态订单数）

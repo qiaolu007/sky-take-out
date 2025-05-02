@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.sky.entity.User;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -37,7 +38,7 @@ public interface UserMapper {
      * @return
      */
     @Select("select count(*) from user where create_time < #{beginTime}")
-    BigDecimal getTotalUserByTime(LocalDateTime beginTime);
+    Integer getTotalUserByTime(LocalDateTime beginTime);
 
     /**
      * 查询当天时间内新增用户量
@@ -46,5 +47,5 @@ public interface UserMapper {
      * @return
      */
     @Select("select count(*) from user where create_time between #{beginStart} and #{endFinish}")
-    BigDecimal getNewUser(LocalDateTime beginStart, LocalDateTime endFinish);
+    Integer getNewUser(LocalDateTime beginStart, LocalDateTime endFinish);
 }
